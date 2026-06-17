@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fazli [Surname] — Economist</title>
+  <meta name="description" content="PhD Candidate in Economics at the University of Strasbourg. Research on AI adoption, medical devices, innovation economics, and firm performance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+
+    /* ═══════════════════════════════════════════════
+       DESIGN TOKENS
+       Change these to re-theme the whole site
+    ════════════════════════════════════════════════ */
+    :root {
+      --navy:     #0A1628;
+      --navy-mid: #1A3A5C;
+      --gold:     #C9A84C;
+      --bg:       #F5F3EE;
+      --bg-card:  #FFFFFF;
+      --border:   #D9D5CC;
+      --text:     #0A1628;
+      --muted:    #5A6070;
+      --green:    #2D6A4F;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      line-height: 1.2;
+    }
+
+    a { color: var(--navy-mid); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--gold); }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ═══════════════════════════════════════════════
+       NAVIGATION
+    ════════════════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10, 22, 40, 0.97);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201,168,76,0.25);
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* hamburger (mobile) */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; transition: 0.3s; }
+
+    /* ═══════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      padding: 120px 6% 80px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      color: var(--navy);
+      line-height: 1.05;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── gold underline signature element ── */
+    .hero-name span {
+      position: relative;
+      display: inline-block;
+    }
+    .hero-name span::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 0;
+      width: 100%; height: 3px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      color: var(--text);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.85;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: 2px;
+      font-size: 0.83rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+    .btn-primary:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--navy);
+      border-color: var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* photo frame */
+    .hero-photo { display: flex; justify-content: center; align-items: flex-start; padding-top: 1rem; }
+
+    .photo-wrap {
+      position: relative;
+      width: 240px;
+      flex-shrink: 0;
+    }
+
+    /* Replace <img> src with your actual photo path */
+    .photo-wrap img,
+    .photo-placeholder {
+      width: 240px;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+      border: 1px solid var(--border);
+    }
+
+    .photo-placeholder {
+      background: #E8E4DC;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* offset gold border — the signature accent */
+    .photo-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -7px; right: -7px;
+      width: 100%; height: 100%;
+      border: 1.5px solid var(--gold);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════════
+       SECTION WRAPPER
+    ════════════════════════════════════════════════ */
+    .section-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 6%;
+    }
+
+    .section-wrap + .section-wrap {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      color: var(--navy);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.6rem;
+      flex: 1;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESEARCH INTERESTS
+    ════════════════════════════════════════════════ */
+    .interests-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+
+    .tag {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 0.4rem 0.9rem;
+      font-size: 0.82rem;
+      color: var(--navy-mid);
+      white-space: nowrap;
+    }
+
+    .about-bio {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.85;
+      max-width: 680px;
+    }
+
+    /* ═══════════════════════════════════════════════
+       PAPERS
+    ════════════════════════════════════════════════ */
+    .paper-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .paper-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .paper-item:first-child { padding-top: 0; }
+    .paper-item:last-child { border-bottom: none; }
+
+    .paper-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .paper-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gold);
+    }
+
+    .paper-badge {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.55rem;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .badge-wp  { color: var(--navy-mid); }
+    .badge-pub { color: var(--green); }
+    .badge-prog { color: #7C3AED; }
+
+    .paper-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.08rem;
+      color: var(--navy);
+      line-height: 1.4;
+      margin-bottom: 0.3rem;
+    }
+
+    .paper-authors {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .paper-journal {
+      font-size: 0.84rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 0.7rem;
+    }
+
+    .paper-links {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    .paper-link {
+      font-size: 0.78rem;
+      color: var(--navy-mid);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .paper-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    .abstract-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .abstract-btn:hover { color: var(--gold); }
+
+    .paper-abstract {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, margin-top 0.2s;
+      margin-top: 0;
+    }
+    .paper-abstract.open {
+      max-height: 400px;
+      margin-top: 0.75rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       CONTACT
+    ════════════════════════════════════════════════ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 3rem;
+    }
+
+    .contact-block { display: flex; flex-direction: column; gap: 0.3rem; }
+
+    .contact-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.67rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .contact-value {
+      font-size: 0.92rem;
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    .social-links { display: flex; flex-direction: column; gap: 0.3rem; }
+    .social-links a { font-size: 0.88rem; }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════════ */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      padding: 1.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════════════ */
+    @media (max-width: 740px) {
+      #hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 90px;
+        padding-bottom: 60px;
+        gap: 2.5rem;
+      }
+
+      .hero-photo { order: -1; }
+      .photo-wrap, .photo-wrap img, .photo-placeholder { width: 180px; height: 220px; }
+
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy); padding: 1rem 6%; gap: 1rem; }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════ -->
+<nav>
+  <span class="nav-name">Fazli [Surname]</span>
+
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
+<div id="hero">
+
+  <div class="hero-text">
+    <p class="hero-eyebrow">PhD Candidate · Economics</p>
+
+    <h1 class="hero-name">
+      Fazli<br>
+      <span>[Your Surname]</span>
+    </h1>
+
+    <p class="hero-title">University of Strasbourg</p>
+
+    <p class="hero-bio">
+      I study how firms adopt artificial intelligence and how this shapes
+      innovation and market performance — with a focus on the medical device
+      industry. My work sits at the intersection of innovation economics,
+      health economics, and firm-level empirics.
+    </p>
+
+    <div class="hero-ctas">
+      <!-- Update href with your real email -->
+      <a href="mailto:firstname.surname@unistra.fr" class="btn btn-primary">✉ Email me</a>
+      <!-- Upload your CV as cv.pdf to the same folder -->
+      <a href="cv.pdf" class="btn btn-outline" target="_blank">CV (PDF) ↗</a>
+      <!-- Update with your Google Scholar URL -->
+      <a href="https://scholar.google.com" class="btn btn-outline" target="_blank">Scholar ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-photo">
+    <div class="photo-wrap">
+      <!--
+        OPTION A — Use a photo:
+          Replace the placeholder div below with:
+          <img src="photo.jpg" alt="Fazli [Surname]" />
+          Then upload your photo as "photo.jpg" to your GitHub repo.
+
+        OPTION B — Keep the placeholder until you have a photo.
+      -->
+      <div class="photo-placeholder">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.5">
+          <circle cx="12" cy="7" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        Replace with<br>your photo
+      </div>
+    </div>
+  </div>
+
+</div><!-- /hero -->
+
+
+<!-- ════════════════════════════════════════════════
+     ABOUT / RESEARCH INTERESTS
+════════════════════════════════════════════════ -->
+<section id="about">
+<div class="section-wrap">
+
+  <div class="section-header">
+    <span class="section-label">01</span>
+    <h2 class="section-title">Research Interests</h2>
+  </div>
+
+  <div class="interests-grid">
+    <span class="tag">AI Adoption</span>
+    <span class="tag">Medical Devices</span>
+    <span class="tag">Innovation Economics</span>
+    <span class="tag">Health Economics</span>
+    <span class="tag">Firm Performance</span>
+    <span class="tag">Patents &amp; Bibliometrics</span>
+    <span class="tag">Econometrics</span>
+    <span class="tag">Industrial Organisation</span>
+  </div>
+
+  <!-- Optional longer paragraph about your research agenda -->
+  <p class="about-bio">
+    [Optional: 2–3 sentences about your broader research agenda and methodological approach.
+    For example: "My research combines administrative microdata — FDA device clearances, patent records,
+    bibliometric indices, and firm-level financial data — with structural econometric methods to identify
+    causal effects of innovation on market outcomes."]
+  </p>
+
+</div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     WORKING PAPERS
+════════════════════════════════════════════════ -->
+<section id="research">
+<div class="section-wrap">
+
+  <div class="section-header">
+    <span class="section-label">02</span>
+    <h2 class="section-title">Working Papers</h2>
+  </div>
+
+  <div class="paper-list">
+
+    <!-- ── Paper 1 ── -->
+    <div class="paper-item">
+      <div class="paper-meta">
+        <span class="paper-year">2025</span>
+        <span class="paper-badge badge-wp">Working Paper</span>
+      </div>
+      <h3 class="paper-title">AI Innovation and Firm Performance in the Medical Device Industry</h3>
+      <p class="paper-authors">Fazli [Surname]</p>
+      <div class="paper-links">
+        <a href="#" class="paper-link">PDF ↗</a>
+        <a href="#" class="paper-link">SSRN ↗</a>
+        <button class="abstract-btn" onclick="toggleAbstract(this)">▾ Abstract</button>
+      </div>
+      <div class="paper-abstract">
+        [Paste your abstract here. This expands on click. Describe your research question,
+        empirical strategy — CDM framework, FDA data, patent and bibliometric linkages —
+        and main findings in 3–5 sentences.]
+      </div>
+    </div>
+
+    <!-- ── Paper 2 ── -->
+    <div class="paper-item">
+      <div class="paper-meta">
+        <span class="paper-year">2024</span>
+        <span class="paper-badge badge-prog">Work in Progress</span>
+      </div>
+      <h3 class="paper-title">Second Paper Title — Work in Progress</h3>
+      <p class="paper-authors">Fazli [Surname], Co-Author Name</p>
+      <div class="paper-links">
+        <button class="abstract-btn" onclick="toggleAbstract(this)">▾ Abstract</button>
+      </div>
+      <div class="paper-abstract">
+        [Abstract for your second paper or project description.]
+      </div>
+    </div>
+
+  </div><!-- /paper-list -->
+
+</div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     PUBLICATIONS
+════════════════════════════════════════════════ -->
+<section id="publications">
+<div class="section-wrap">
+
+  <div class="section-header">
+    <span class="section-label">03</span>
+    <h2 class="section-title">Publications</h2>
+  </div>
+
+  <div class="paper-list">
+
+    <!-- ── Publication 1 ── -->
+    <div class="paper-item">
+      <div class="paper-meta">
+        <span class="paper-year">2023</span>
+        <span class="paper-badge badge-pub">Published</span>
+      </div>
+      <h3 class="paper-title">Published Article Title</h3>
+      <p class="paper-authors">Fazli [Surname], Co-Author Name</p>
+      <p class="paper-journal">Journal of [Field], Vol. X, No. Y, pp. AAA–BBB</p>
+      <div class="paper-links">
+        <a href="#" class="paper-link">DOI ↗</a>
+        <a href="#" class="paper-link">PDF ↗</a>
+      </div>
+    </div>
+
+    <!-- Add more publications following the same pattern -->
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════════════ -->
+<section id="contact">
+<div class="section-wrap">
+
+  <div class="section-header">
+    <span class="section-label">04</span>
+    <h2 class="section-title">Contact</h2>
+  </div>
+
+  <div class="contact-grid">
+
+    <div class="contact-block">
+      <span class="contact-label">Email</span>
+      <a href="mailto:firstname.surname@unistra.fr" class="contact-value">
+        firstname.surname@unistra.fr
+      </a>
+    </div>
+
+    <div class="contact-block">
+      <span class="contact-label">Office</span>
+      <span class="contact-value">
+        Room XXX, [Building Name]<br>
+        University of Strasbourg
+      </span>
+    </div>
+
+    <div class="contact-block">
+      <span class="contact-label">Address</span>
+      <span class="contact-value">
+        [Your department]<br>
+        University of Strasbourg<br>
+        Strasbourg, France
+      </span>
+    </div>
+
+    <div class="contact-block">
+      <span class="contact-label">Profiles</span>
+      <div class="social-links">
+        <a href="https://scholar.google.com" target="_blank">Google Scholar ↗</a>
+        <a href="https://ideas.repec.org" target="_blank">IDEAS / RePEC ↗</a>
+        <a href="https://linkedin.com" target="_blank">LinkedIn ↗</a>
+        <a href="https://orcid.org" target="_blank">ORCID ↗</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer>
+  © 2025 Fazli [Surname] &nbsp;·&nbsp; Last updated June 2025
+</footer>
+
+
+<!-- ════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════ -->
+<script>
+  // Expand / collapse paper abstracts
+  function toggleAbstract(btn) {
+    const item     = btn.closest('.paper-item');
+    const abstract = item.querySelector('.paper-abstract');
+    const isOpen   = abstract.classList.toggle('open');
+    btn.textContent = isOpen ? '▴ Abstract' : '▾ Abstract';
+  }
+
+  // Close mobile nav when a link is tapped
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
